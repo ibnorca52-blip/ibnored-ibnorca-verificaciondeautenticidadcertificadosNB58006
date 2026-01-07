@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificación de Certificado - GIVE UP</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #222;
+    }
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .valid {
+      background: #e6f7ec;
+      color: #1e7f43;
+      border: 1px solid #1e7f43;
+    }
+    .invalid {
+      background: #fdecea;
+      color: #a42828;
+      border: 1px solid #a42828;
+    }
+    .certificate {
+      margin-top: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Certificado Digital</h1>
+    <p>Este certificado ha sido emitido por <strong>GIVE UP</strong>. Escaneado mediante código QR.</p><div id="status" class="status">Verificando certificado...</div>
+
+<div id="certificate" class="certificate" style="display:none;">
+  <p><strong>Nombre:</strong> <span id="name"></span></p>
+  <p><strong>Documento:</strong> <span id="doc"></span></p>
+  <p><strong>Certificado ID:</strong> <span id="certId"></span></p>
+  <p><strong>Fecha de emisión:</strong> <span id="date"></span></p>
+</div>
+
+<footer>
+  Verificación oficial en <strong>www.giveup.com</strong>
+</footer>
+
+  </div>  <script>
+    // Simulación de base de datos de certificados
+    const certificados = {
+      "ABC123": {
+        nombre: "Juan Pérez",
+        documento: "DNI 12345678",
+        fecha: "2026-01-01"
+      },
+      "XYZ789": {
+        nombre: "María López",
+        documento: "DNI 87654321",
+        fecha: "2026-01-03"
+      }
+    };
+
+    // Obtener ID desde la URL (ej: ?id=ABC123)
+    const params = new URLSearchParams(window.location.search);
+    const certId = params.get("id");
+
+    const statusDiv = document.getElementById("status");
+    const certDiv = document.getElementById("certificate");
+
+    if (certId && certificados[certId]) {
+      const data = certificados[certId];
+      statusDiv.textContent = "✔ Certificado válido y verificado por GIVE UP";
+      statusDiv.classList.add("valid");
+
+      document.getElementById("name").textContent = data.nombre;
+      document.getElementById("doc").textContent = data.documento;
+      document.getElementById("certId").textContent = certId;
+      document.getElementById("date").textContent = data.fecha;
+
+      certDiv.style.display = "block";
+    } else {
+      statusDiv.textContent = "✖ Certificado no válido o inexistente";
+      statusDiv.classList.add("invalid");
+    }
+  </script></body>
+</html>
